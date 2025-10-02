@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>EISC Chat App</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="scripts/index.js?version=1.2" defer></script>
+	<link rel="stylesheet" href="styles/index.css?version=1.2">
+</head>
+<body>
+	<div class="chat-container">
+		<div class="chat-header">
+			EISC Chat App
+		</div>
+		<div class="chat-main">
+			<div class="chat-messages" id="chat-messages">
+				<!-- Messages will be inserted here by JavaScript -->
+			</div>
+			<form class="chat-form">
+				<input type="text" class="chat-input" placeholder="Type your message..." autocomplete="on" required>
+				<button type="submit" class="chat-send-btn">Send</button>
+			</form>
+		</div>
+		<div class="change-username">
+			<button id="change-username-btn">Change Username</button>
+		</div>
+	</div>
+</body>
+</html>
