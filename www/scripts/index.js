@@ -73,6 +73,9 @@ $(document).ready(function () {
 		sending = true;
 		const { text, input } = messageQueue.shift();
 
+		// Escape special characters in text to prevent server-side issues
+		const safeText = text.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+
 		fetch('https://api.ipify.org?format=json')
 			.then(res => res.json())
 			.then(data => {
@@ -81,7 +84,7 @@ $(document).ready(function () {
 					url: '/messages',
 					type: 'POST',
 					contentType: 'application/json',
-					data: JSON.stringify({ text: text, ip: data.ip, device_id: device_id }),
+					data: JSON.stringify({ text: safeText, ip: data.ip, device_id: device_id }),
 					success: function () {
 						input.val('');
 						lastTs = null;
