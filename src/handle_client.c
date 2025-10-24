@@ -118,15 +118,15 @@ void *handle_client(void *arg)
 				}
 
 				if (has_username)
-					send_file(client_fd, "www/templates/index.html", "text/html");
+					send_file(client_fd, "www/pages/index.html", "text/html");
 
 				else
-					send_file(client_fd, "www/templates/username.html", "text/html");
+					send_file(client_fd, "www/pages/username.html", "text/html");
 			}
 			// NEW: serve the username page explicitly
 			else if (strcmp(clean_path, "/username") == 0)
 			{
-				send_file(client_fd, "www/templates/username.html", "text/html");
+				send_file(client_fd, "www/pages/username.html", "text/html");
 			}
 			// Serve any CSS file in www/styles/
 			else if (strncmp(clean_path, "/styles/", 8) == 0 && strstr(clean_path, ".css"))
@@ -137,7 +137,7 @@ void *handle_client(void *arg)
 			}
 
 			// Serve any JS file in www/scripts/
-			else if (strncmp(clean_path, "/scripts/", 9) == 0 && strstr(clean_path, ".js"))
+			else if (strncmp(clean_path, "/dist/", 9) == 0 && strstr(clean_path, ".js"))
 			{
 				char file_path[256];
 				snprintf(file_path, sizeof(file_path), "www%s", clean_path);
@@ -354,6 +354,7 @@ void *handle_client(void *arg)
 			memcpy(ok + header_len, resp_body, strlen(resp_body));
 			send(client_fd, ok, header_len + strlen(resp_body), 0);
 		}
+		
 		// NEW: handle username updates
 		else if (strcmp(method, "POST") == 0 && strcmp(path, "/username") == 0)
 		{
@@ -442,6 +443,7 @@ void *handle_client(void *arg)
 		else
 			send(client_fd, bad_request, strlen(bad_request), 0);
 	}
+
 	close(client_fd);
 	return NULL;
 }
