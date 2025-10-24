@@ -28,7 +28,7 @@ body {
 	letter-spacing: 0.5px;
 }
 
-#username-form input[type="text"] {
+.username-input {
 	padding: 0.75rem;
 	border: 1px solid #e0e4ea;
 	border-radius: 8px;
@@ -37,7 +37,7 @@ body {
 	transition: border-color 0.2s;
 }
 
-#username-form input[type="text"]:focus {
+.username-input:focus {
 	border-color: #2575fc;
 }
 
