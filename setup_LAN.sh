@@ -15,6 +15,10 @@ DISABLE_OFFLOAD=1          # 1 = désactive offloading (optionnel)
 sudo apt update
 sudo apt install -y hostapd dnsmasq iptables
 
+# ===== Démasquer et activer hostapd (évite le problème "masked") =====
+sudo systemctl unmask hostapd
+sudo systemctl enable hostapd
+
 # ===== Fonction pour réinitialiser l'interface Wi-Fi =====
 reset_wifi_iface() {
     sudo systemctl stop hostapd
@@ -73,7 +77,7 @@ sudo sed -i "s|#DAEMON_CONF=\"\"|DAEMON_CONF=\"/etc/hostapd/hostapd.conf\"|" /et
 sudo sysctl -w net.ipv4.ip_forward=1
 sudo sysctl -w net.core.netdev_max_backlog=5000
 sudo sysctl -w net.ipv4.tcp_congestion_control=bbr
-sudo sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/' /etc/sysctl.conf
+sudo sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/' /etc/sysctl.conf || true
 
 # ===== Configurer NAT via iptables =====
 sudo iptables -t nat -A POSTROUTING -o $ETH_IFACE -j MASQUERADE
